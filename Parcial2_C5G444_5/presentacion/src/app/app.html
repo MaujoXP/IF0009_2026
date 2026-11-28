@@ -1,0 +1,24 @@
+<mat-toolbar>
+    <button mat-button (click)="sidenav.toggle()" [disabled]="!authService.sesionActiva()">Menú</button>
+    <span class="ml-4">Examen 2</span>
+    <span class="grow"></span>
+    @if (authService.sesionActiva()) {
+        <span>{{ authService.userActualS().nombre }}</span>
+    }
+</mat-toolbar>
+
+<mat-sidenav-container class="container">
+    <mat-sidenav #sidenav class="sidenav" mode="side" [opened]="authService.sesionActiva()">
+        <mat-nav-list>
+            @for(item of menuItems; track item.route) {
+                <a mat-list-item [routerLink]="'/' + item.route" routerLinkActive="active">{{ item.label }}</a>
+            }
+            <mat-divider></mat-divider>
+            <a mat-list-item (click)="loggout()">Cerrar sesión</a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <router-outlet />
+    </mat-sidenav-content>
+</mat-sidenav-container>

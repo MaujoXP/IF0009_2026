@@ -1,0 +1,81 @@
+<div class="max-w-6xl mx-auto p-4">
+  <h2 class="text-2xl text-center mb-4">Doctor</h2>
+
+  <div class="flex flex-wrap justify-center items-center gap-4">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Nombre</mat-label>
+      <input matInput [formField]="frmFilter.nombre" (keyup.enter)="buscar()" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" subscriptSizing="dynamic">
+      <mat-label>Especialidad</mat-label>
+      <input matInput [formField]="frmFilter.especialidad" (keyup.enter)="buscar()" />
+    </mat-form-field>
+    <button mat-flat-button type="button" (click)="buscar()">Filtrar</button>
+    <button mat-stroked-button type="button" (click)="limpiarFiltro()">Limpiar</button>
+  </div>
+
+  <div class="flex justify-end my-4">
+    <button mat-flat-button type="button" (click)="onCreate()">Nuevo</button>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table mat-table [dataSource]="dataSource()" class="w-full">
+      <ng-container matColumnDef="idUsuario">
+        <th mat-header-cell *matHeaderCellDef> Id Usuario </th>
+        <td mat-cell *matCellDef="let doctor"> {{doctor.idUsuario}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let doctor"> {{doctor.nombre}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="especialidad">
+        <th mat-header-cell *matHeaderCellDef> Especialidad </th>
+        <td mat-cell *matCellDef="let doctor"> {{doctor.especialidad}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="correo">
+        <th mat-header-cell *matHeaderCellDef> Correo </th>
+        <td mat-cell *matCellDef="let doctor"> {{doctor.correo}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="telefono">
+        <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+        <td mat-cell *matCellDef="let doctor"> {{doctor.telefono}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="celular">
+        <th mat-header-cell *matHeaderCellDef> Celular </th>
+        <td mat-cell *matCellDef="let doctor"> {{doctor.celular}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ultima_consulta">
+        <th mat-header-cell *matHeaderCellDef> Última consulta </th>
+        <td mat-cell *matCellDef="let doctor"> {{doctor.ultima_consulta}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="direccion">
+        <th mat-header-cell *matHeaderCellDef> Dirección </th>
+        <td mat-cell *matCellDef="let doctor"> {{doctor.direccion}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="botonera">
+        <th mat-header-cell *matHeaderCellDef class="text-center"> Acciones </th>
+        <td mat-cell *matCellDef="let doctor">
+          <div class="flex gap-2 justify-center">
+            <button mat-stroked-button type="button" (click)="onEdit(doctor.idUsuario)">Modificar</button>
+            <button mat-stroked-button type="button" (click)="onDelete(doctor)">Eliminar</button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  @if (dataSource().length === 0) {
+    <p class="text-center p-4">{{ mensajeVacio() }}</p>
+  }
+</div>

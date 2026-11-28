@@ -1,0 +1,52 @@
+<h2 mat-dialog-title class="text-center">{{ titulo }}</h2>
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+  <form id="frmAdmin" [formRoot]="frmAdmin" class="grid gap-2 pt-4">
+    <mat-form-field appearance="outline">
+      <mat-label>Id Usuario</mat-label>
+      <input matInput [formField]="frmAdmin.idUsuario" />
+      @if (frmAdmin.idUsuario().touched() && frmAdmin.idUsuario().invalid()) {
+        @for(error of frmAdmin.idUsuario().errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput [formField]="frmAdmin.nombre" />
+      @if (frmAdmin.nombre().touched() && frmAdmin.nombre().invalid()) {
+        @for(error of frmAdmin.nombre().errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Correo</mat-label>
+      <input matInput [formField]="frmAdmin.correo" />
+      @if (frmAdmin.correo().touched() && frmAdmin.correo().invalid()) {
+        @for(error of frmAdmin.correo().errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Dirección</mat-label>
+      <input matInput [formField]="frmAdmin.direccion" />
+      @if (frmAdmin.direccion().touched() && frmAdmin.direccion().invalid()) {
+        @for(error of frmAdmin.direccion().errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
+      }
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-divider></mat-divider>
+<mat-dialog-actions align="end">
+  <button mat-stroked-button type="button" [mat-dialog-close]="false">Cancelar</button>
+  <button mat-flat-button type="submit" form="frmAdmin" [disabled]="frmAdmin().invalid()">Guardar</button>
+</mat-dialog-actions>

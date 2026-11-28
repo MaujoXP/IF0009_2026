@@ -1,0 +1,32 @@
+<h2 mat-dialog-title class="text-center">Iniciar sesión</h2>
+
+<mat-dialog-content>
+  <form id="frmLogin" [formRoot]="frmLogin" class="flex flex-col pt-2">
+    <mat-form-field appearance="outline">
+      <mat-label>Usuario</mat-label>
+      <input matInput type="text" [formField]="frmLogin.idUsuario" (focus)="mensajeError.set('')" />
+      @if (frmLogin.idUsuario().touched() && frmLogin.idUsuario().invalid()) {
+        @for(error of frmLogin.idUsuario().errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" [formField]="frmLogin.passw" (focus)="mensajeError.set('')" />
+      @if (frmLogin.passw().touched() && frmLogin.passw().invalid()) {
+        @for(error of frmLogin.passw().errors(); track error.kind) {
+          <mat-error>{{ error.message }}</mat-error>
+        }
+      }
+    </mat-form-field>
+  </form>
+  @if (mensajeError()) {
+    <p class="text-center text-red-700">{{ mensajeError() }}</p>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+  <button mat-flat-button type="submit" form="frmLogin" [disabled]="frmLogin().invalid()">Iniciar sesión</button>
+</mat-dialog-actions>
